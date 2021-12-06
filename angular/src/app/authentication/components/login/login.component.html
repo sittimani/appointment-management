@@ -1,0 +1,28 @@
+<form #form="ngForm" (ngSubmit)="form.valid && login()">
+    <div class="container">
+        <div class="heading">Login Form</div>
+        <div>
+            <label>Email Address : </label>
+            <input type="text" placeholder="Enter Username" name="username" [(ngModel)]="loginForm.email" #email="ngModel" emailValidator required autocomplete="off">
+            <div *ngIf="email.touched" class="error-message">
+                <span *ngIf="email.errors?.required">Email Address is required</span>
+                <span *ngIf="email.errors?.invalidEmail">Invalid Email address</span>
+            </div>
+        </div>
+
+        <div>
+            <label>Password : </label>
+            <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="loginForm.password" #password="ngModel" minlength="8" passwordValidator required>
+            <div *ngIf="password.touched" class="error-message">
+                <span *ngIf="password.errors?.required">Password is required</span>
+                <span *ngIf="password.errors?.invalidPassword">Password must contains atleast one uppercase, one lowercase, and one special characters</span>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit">Login</button>
+            <button type="button" class="cancelbtn"> Cancel</button> Forgot <a routerLink> password? </a>
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+
+.error-message {
+    color: red;
+    padding: 5px 0;
+}
+
+.heading {
+    text-align: center;
+    font-size: larger;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
