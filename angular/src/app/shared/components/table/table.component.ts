@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Items } from '../../shared/interface/table-items.interface';
 
 @Component({
   selector: 'app-table',
@@ -8,11 +9,18 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TableComponent implements OnInit {
 
   @Input() headers: string[] = []
-  @Input() items: any
+  @Input() items!: Items[]
+  @Input() isApproveButton = false
+
+  @Output() approveUser = new EventEmitter<string>()
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  approve(id: string) {
+    this.approveUser.emit(id)
+    console.log(id)
+  }
 }

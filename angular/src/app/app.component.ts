@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular';
+  isDoctor = false;
+  isLoggedIn = true;
 
   public headers = ["name", "age"]
   public items = [{
