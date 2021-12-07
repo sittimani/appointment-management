@@ -1,8 +1,12 @@
 <table>
     <tr>
-        <th *ngFor="let header of headers">{{header}}</th>
+        <th *ngFor="let header of headers">{{header | uppercase}}</th>
+        <th *ngIf="isApproveButton">Approve</th>
     </tr>
     <tr *ngFor="let item of items">
         <td *ngFor="let header of headers"> {{item[header]}} </td>
+        <td *ngIf="isApproveButton">
+            <button (click)="approve(item.id)">Approve</button>
+        </td>
     </tr>
 </table>

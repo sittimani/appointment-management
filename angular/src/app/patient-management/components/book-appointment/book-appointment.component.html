@@ -1,0 +1,34 @@
+<form [formGroup]="appointmentForm" (ngSubmit)="appointmentForm.valid && appointmentForm.touched && bookAppointment()">
+    <div class="container">
+
+        <div class="heading">Book Appointment</div>
+
+        <div>
+            <label>Available Doctors :</label>
+            <select formControlName="doctor">
+                <option value="No">Please Select Value</option>
+                <option *ngFor="let doctor of doctors" [value]="doctor.name">{{doctor.name}}</option>
+            </select>
+            <div *ngIf="controls.doctor?.touched" class="error-message">
+                <span *ngIf="controls.doctor?.errors?.invalidSelector">Please Select Doctor Name</span>
+            </div>
+        </div>
+
+        <div>
+            <label>Time Slot :</label>
+            <select formControlName="timeSlot">
+                <option value="No">Please Select Value</option>
+                <option *ngFor="let time of times" [value]="time">{{time}}</option>
+            </select>
+            <div *ngIf="controls.timeSlot?.touched" class="error-message">
+                <span *ngIf="controls.timeSlot?.errors?.invalidSelector">Please Select Time Slot</span>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit">Book Appointment</button>
+            <button type="button" class="cancelbtn" (click)="cancel()"> Cancel</button>
+        </div>
+
+    </div>
+</form>

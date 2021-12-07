@@ -1,5 +1,5 @@
 <nav>
-    <ul>
+    <ul *ngIf="!isLoggedIn">
         <li>
             <a routerLink="login">Login</a>
         </li>
@@ -8,8 +8,23 @@
         </li>
     </ul>
 
-</nav>
+    <ul *ngIf="isLoggedIn && !isDoctor">
+        <li>
+            <a routerLink="patient">My Appointments</a>
+        </li>
+        <li>
+            <a routerLink="patient/book-appointment">book-appointment</a>
+        </li>
+    </ul>
 
-<app-table [headers]="headers" [items]="items"></app-table>
+    <ul *ngIf="isLoggedIn && isDoctor">
+        <li>
+            <a routerLink="doctor">Doctor Appointments</a>
+        </li>
+        <li>
+            <a routerLink="doctor/requests">Appointment Request</a>
+        </li>
+    </ul>
+</nav>
 
 <router-outlet></router-outlet>
