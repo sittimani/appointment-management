@@ -1,20 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppointmentRequestResolver } from '../core/resolver/appointment-request.resolver';
+import { DoctorAppointmentResolver } from '../core/resolver/doctor-appointment.resolver';
 import { AppointmentRequestComponent } from './components/appointment-request/appointment-request.component';
 import { DoctorAppointmentComponent } from './components/doctor-appointment/doctor-appointment.component';
 
 const routes: Routes = [
   {
     path: "",
-    component: DoctorAppointmentComponent
+    redirectTo: "my-appointments",
+    pathMatch: "full"
   },
   {
     path: "my-appointments",
-    component: DoctorAppointmentComponent
+    component: DoctorAppointmentComponent,
+    resolve: {
+      appointments: DoctorAppointmentResolver
+    }
   },
   {
     path: "requests",
-    component: AppointmentRequestComponent
+    component: AppointmentRequestComponent,
+    resolve: {
+      requests: AppointmentRequestResolver
+    }
   }
 ];
 

@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PatientAppointmentResolver } from '../core/resolver/patient-appointment.resolver';
 import { BookAppointmentComponent } from './components/book-appointment/book-appointment.component';
 import { PatientAppointmentComponent } from './components/patient-appointment/patient-appointment.component';
 
 const routes: Routes = [
   {
     path: "",
-    component: PatientAppointmentComponent
+    redirectTo: "my-appointments",
+    pathMatch: "full"
   },
   {
     path: "my-appointments",
-    component: PatientAppointmentComponent
+    component: PatientAppointmentComponent,
+    resolve: {
+      product: PatientAppointmentResolver
+    }
   },
   {
     path: "book-appointment",

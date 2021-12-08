@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Controls } from 'src/app/core/shared/interface/register-controls.interface';
-import { emailValidator } from 'src/app/core/shared/validators/email.directive';
-import { MatchValidator } from 'src/app/core/shared/validators/match.validator';
-import { invalidPassword } from 'src/app/core/shared/validators/password.directive';
-import { selectValidator } from 'src/app/core/shared/validators/select.validator';
+
+import {
+  emailValidator,
+  invalidPassword,
+  MatchValidator,
+  selectValidator,
+  Controls
+} from 'src/app/core';
 
 @Component({
   selector: 'app-register',

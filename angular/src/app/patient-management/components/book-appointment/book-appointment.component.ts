@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { selectValidator } from 'src/app/core/shared/validators/select.validator';
+import { selectValidator } from 'src/app/core/validators/select.validator';
 import { BookAppointment } from '../../shared/interface/appointment.interface';
 
 @Component({
@@ -9,7 +9,7 @@ import { BookAppointment } from '../../shared/interface/appointment.interface';
   templateUrl: './book-appointment.component.html',
   styleUrls: ['./book-appointment.component.css']
 })
-export class BookAppointmentComponent implements OnInit {
+export class BookAppointmentComponent {
 
   doctors = [
     { name: "mani" },
@@ -43,9 +43,6 @@ export class BookAppointmentComponent implements OnInit {
       timeSlot: ['No', [Validators.required, selectValidator]]
     })
     this.setControls()
-  }
-
-  ngOnInit(): void {
   }
 
   bookAppointment() {
