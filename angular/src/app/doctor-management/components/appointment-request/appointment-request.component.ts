@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AppointmentRequest } from '../../shared/interface/request.interface';
 
 @Component({
@@ -10,16 +11,14 @@ export class AppointmentRequestComponent implements OnInit {
 
   isApproveButton = true
   headers = ["patient name", "time"]
-  requests: AppointmentRequest[] = [
-    {
-      "id": "123",
-      "patient name": "mani",
-      "time" : "10:00 AM"
-    }
-  ]
-  constructor() { }
+  requests: AppointmentRequest[] = []
+  
+  constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.activatedRoute.data.subscribe(result => {
+      this.requests = result.requests
+    })
   }
 
   approveUser(id: string) {
