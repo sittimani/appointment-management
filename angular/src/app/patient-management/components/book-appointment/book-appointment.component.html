@@ -16,7 +16,7 @@
 
         <div>
             <label>Time Slot :</label>
-            <select formControlName="timeSlot">
+            <select formControlName="time">
                 <option value="No">Please Select Value</option>
                 <option *ngFor="let time of times" [value]="time">{{time}}</option>
             </select>

@@ -20,7 +20,8 @@ export class AuthService {
   login(creditionals: LoginCreditionals) {
     const data = {
       token: "something",
-      role: "patient"
+      role: "doctor"
+
     }
     return of(data)
   }

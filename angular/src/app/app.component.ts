@@ -18,8 +18,6 @@ export class AppComponent {
       if (isloggedIn)
         this.isDoctor = this.authService.getUserRole() === "doctor" ? true : false
     })
-    console.log(this.isDoctor, this.isLoggedIn);
-    
   } 
 
   logout() {
