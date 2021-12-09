@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './authentication/shared/service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +10,19 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'angular';
   isDoctor = false;
-  isLoggedIn = true;
+  isLoggedIn = false;
 
-  public headers = ["name", "age"]
-  public items = [{
-    name: "manikandan",
-    age: 21
-  }]
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.isUserLoggedIn$.subscribe(isloggedIn => {
+      this.isLoggedIn = isloggedIn
+      if (isloggedIn)
+        this.isDoctor = this.authService.getUserRole() === "doctor" ? true : false
+    })
+  } 
+
+  logout() {
+    localStorage.clear()
+    this.authService.isLoggedIn()
+    this.router.navigate(["login"])
+  }
 }

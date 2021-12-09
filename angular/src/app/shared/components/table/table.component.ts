@@ -12,15 +12,15 @@ export class TableComponent implements OnInit {
   @Input() items!: Items[]
   @Input() isApproveButton = false
 
-  @Output() approveUser = new EventEmitter<string>()
+  @Output() approveUser = new EventEmitter<any>()
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  approve(id: string) {
-    this.approveUser.emit(id)
-    console.log(id)
+  approve(patient_id: string, time: string) {
+    this.approveUser.emit({patient_id, time})
+   // console.log(id)
   }
 }

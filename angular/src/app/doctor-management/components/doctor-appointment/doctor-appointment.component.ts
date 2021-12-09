@@ -1,27 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-appointment',
   templateUrl: './doctor-appointment.component.html',
   styleUrls: ['./doctor-appointment.component.css']
 })
-export class DoctorAppointmentComponent implements OnInit {
+export class DoctorAppointmentComponent {
 
   headers = ["patient", "time"]
-  myAppointments = [
-    {
-      patient: "Manikandan",
-      time: "9:00 AM"
-    }, 
-    {
-      patient: "Manikandan Sasikumar",
-      time: "9:30 AM"
-    }
-  ]
+  myAppointments = []
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private activedRouted: ActivatedRoute) { 
+    this.activedRouted.data.subscribe(result => {
+      this.myAppointments = result.appointments
+      // console.log(this.myAppointments)
+    })
   }
 
 }
