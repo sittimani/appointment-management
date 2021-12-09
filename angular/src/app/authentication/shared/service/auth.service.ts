@@ -21,6 +21,7 @@ export class AuthService {
     const data = {
       token: "something",
       role: "doctor"
+
     }
     return of(data)
   }

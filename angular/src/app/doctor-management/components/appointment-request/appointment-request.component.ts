@@ -19,6 +19,7 @@ export class AppointmentRequestComponent implements OnInit {
     private doctorService: DoctorDataService,
     private router: Router) { }
 
+
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(result => {
       this.requests = result.requests

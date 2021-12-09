@@ -14,7 +14,6 @@ export class DoctorAppointmentComponent {
   constructor(private activedRouted: ActivatedRoute) { 
     this.activedRouted.data.subscribe(result => {
       this.myAppointments = result.appointments
-      // console.log(this.myAppointments)
     })
   }
 

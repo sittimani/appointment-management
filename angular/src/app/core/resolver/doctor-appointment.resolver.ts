@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Router, Resolve,
@@ -13,6 +12,7 @@ import { DoctorDataService } from 'src/app/doctor-management/shared/service/doct
 @Injectable({
   providedIn: 'root'
 })
+
 export class DoctorAppointmentResolver implements Resolve<AppointmentRequest[]> {
   
   constructor(private doctorService: DoctorDataService) {}

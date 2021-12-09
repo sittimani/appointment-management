@@ -12,7 +12,7 @@ import { DoctorDataService } from 'src/app/doctor-management/shared/service/doct
   providedIn: 'root'
 })
 export class AppointmentRequestResolver implements Resolve<AppointmentRequest[]> {
-  
+
   constructor(private doctorService: DoctorDataService) {}
 
   resolve(): Observable<AppointmentRequest[]> {
