@@ -7,6 +7,7 @@ import { PatientDataService } from 'src/app/patient-management/shared/service/pa
 @Injectable({
   providedIn: 'root'
 })
+
 export class PatientAppointmentResolver implements Resolve<AppointmentRequest[]> {
 
   constructor(private patientService: PatientDataService) { }

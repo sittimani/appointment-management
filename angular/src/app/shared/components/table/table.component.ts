@@ -16,6 +16,7 @@ export class TableComponent {
 
   constructor() { }
 
+
   approve(patient_id: string, time: string) {
     this.approveUser.emit({patient_id, time})
   }

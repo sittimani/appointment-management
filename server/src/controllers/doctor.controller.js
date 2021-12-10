@@ -1,6 +1,7 @@
 const dataService = require("../data")
 const creditionals = require("../creditionals")
 
+
 function getMyAppointments(request, response) {
     const id = request.params.id
     const data = dataService.getData()
@@ -29,6 +30,7 @@ function updateAppointment(request, response) {
     response.status(200).json("Updated successfully")
 }
 
+
 function getDoctors(request, response) {
     const doctors = creditionals.getDoctors()
     response.status(200).json(doctors)
@@ -39,4 +41,5 @@ module.exports = {
     pendingAppointment,
     updateAppointment,
     getDoctors
+
 }

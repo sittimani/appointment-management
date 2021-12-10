@@ -38,6 +38,7 @@ export class AppointmentRequestComponent implements OnInit {
       this.doctorService.updatePendingRequest(request).subscribe(result => {
         this.router.navigate(["doctor"])
       })
+
     }
   }
 }

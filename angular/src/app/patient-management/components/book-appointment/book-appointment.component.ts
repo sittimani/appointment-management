@@ -14,7 +14,9 @@ import { PatientDataService } from '../../shared/service/patient-data.service';
 })
 export class BookAppointmentComponent {
 
+
   doctors: UserCreditional[] = []
+
 
   times: string[] = []
   appointmentForm: FormGroup
