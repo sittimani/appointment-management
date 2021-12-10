@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Router, Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot
-} from '@angular/router';
+import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AppointmentRequest } from 'src/app/doctor-management/shared/interface/request.interface';
 import { DoctorDataService } from 'src/app/doctor-management/shared/service/doctor-data.service';
@@ -13,7 +9,7 @@ import { DoctorDataService } from 'src/app/doctor-management/shared/service/doct
 })
 export class AppointmentRequestResolver implements Resolve<AppointmentRequest[]> {
 
-  constructor(private doctorService: DoctorDataService) {}
+  constructor(private doctorService: DoctorDataService) { }
 
   resolve(): Observable<AppointmentRequest[]> {
     return this.doctorService.getPendingRequest()

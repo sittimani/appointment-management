@@ -6,7 +6,7 @@ import { Items } from '../../shared/interface/table-items.interface';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
 
   @Input() headers: string[] = []
   @Input() items!: Items[]
@@ -16,11 +16,8 @@ export class TableComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
 
   approve(patient_id: string, time: string) {
     this.approveUser.emit({patient_id, time})
-   // console.log(id)
   }
 }

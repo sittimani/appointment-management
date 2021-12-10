@@ -1,4 +1,4 @@
-const appointmentsModel = require("../models/appointments.model")
+
 const dataService = require("../data")
 
 

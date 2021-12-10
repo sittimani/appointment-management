@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { AuthService } from 'src/app/authentication/shared/service/auth.service';
 import { serverAddress } from 'src/environments/environment.prod';
-import { DoctorAppointments } from '../interface/doctor-appointments.interface';
+
 import { AppointmentRequest } from '../interface/request.interface';
 
 @Injectable({
@@ -9,14 +11,15 @@ import { AppointmentRequest } from '../interface/request.interface';
 })
 export class DoctorDataService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getPendingRequest() {
-    return this.http.get<AppointmentRequest[]>(`${serverAddress}pending-appointments/mani@gmail.com`)
+    return this.http.get<AppointmentRequest[]>(`${serverAddress}pending-appointments/${this.authService.getUserId()}`)
   }
 
   getMyAppointments() {
-    return this.http.get<AppointmentRequest[]>(`${serverAddress}doctor-appointments/mani@gmail.com`)
+    return this.http.get<AppointmentRequest[]>(`${serverAddress}doctor-appointments/${this.authService.getUserId()}`)
+
   }
 
   updatePendingRequest(body: AppointmentRequest) {

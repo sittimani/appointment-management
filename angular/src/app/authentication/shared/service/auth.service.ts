@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { AuthResponse, LoginCreditionals } from '../interface/auth.interface';
+import { serverAddress } from 'src/environments/environment.prod';
+import { AuthResponse, LoginCreditionals, UserCreditional } from '../interface/auth.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +13,14 @@ export class AuthService {
   private isUserLoggedIn: BehaviorSubject<boolean>
 
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.isUserLoggedIn = new BehaviorSubject<boolean>(false)
     this.isUserLoggedIn$ = this.isUserLoggedIn.asObservable()
     this.isLoggedIn()
   }
 
   login(creditionals: LoginCreditionals) {
-    const data = {
-      token: "something",
-      role: "doctor"
-
-    }
-    return of(data)
+    return this.http.post<AuthResponse>(`${serverAddress}login`, creditionals)
   }
 
   isLoggedIn() {
@@ -35,14 +32,30 @@ export class AuthService {
     return token
   }
 
+  registerUser(body: UserCreditional) {
+    return this.http.post(`${serverAddress}register`, body)
+  }
+
 
   saveToken(response: AuthResponse) {
     localStorage.setItem("token", response.token)
     localStorage.setItem("role", response.role)
+    localStorage.setItem("id", response._id)
     this.isLoggedIn()
+  }
+
+  getUserId() {
+    return localStorage.getItem("id")
   }
 
   getUserRole() {
     return localStorage.getItem("role")
+  }
+
+  getToken() {
+    const token = localStorage.getItem("token")
+    if (token)
+      return token
+    return ""
   }
 }

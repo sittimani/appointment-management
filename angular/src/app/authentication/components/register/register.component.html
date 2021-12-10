@@ -12,19 +12,6 @@
         </div>
 
         <div>
-            <label>Team :</label>
-            <select formControlName="team">
-                <option value="No">Please Select a Value</option>
-                <option value="MEAN">MEAN</option>
-                <option value="MERN">MERN</option>
-                <option value="Django">Django</option>
-            </select>
-            <div *ngIf="controls.team?.touched" class="error-message">
-                <span *ngIf="controls.team?.errors?.invalidSelector">Please Select a Team</span>
-            </div>
-        </div>
-
-        <div>
             <label>Email Address : </label>
             <input type="text" placeholder="Enter Your Email Address" name="username" formControlName="email">
             <div *ngIf="controls.email?.touched" class="error-message">

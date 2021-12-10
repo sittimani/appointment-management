@@ -7,6 +7,7 @@ import { AuthService } from './authentication/shared/service/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'angular';
   isDoctor = false;
