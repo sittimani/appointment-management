@@ -5,9 +5,9 @@
 
         <div>
             <label>Available Doctors :</label>
-            <select formControlName="doctor">
+            <select formControlName="doctor_id">
                 <option value="No">Please Select Value</option>
-                <option *ngFor="let doctor of doctors" [value]="doctor.name">{{doctor.name}}</option>
+                <option *ngFor="let doctor of doctors" [value]="doctor._id">{{doctor.name}}</option>
             </select>
             <div *ngIf="controls.doctor?.touched" class="error-message">
                 <span *ngIf="controls.doctor?.errors?.invalidSelector">Please Select Doctor Name</span>
@@ -16,7 +16,7 @@
 
         <div>
             <label>Time Slot :</label>
-            <select formControlName="timeSlot">
+            <select formControlName="time">
                 <option value="No">Please Select Value</option>
                 <option *ngFor="let time of times" [value]="time">{{time}}</option>
             </select>

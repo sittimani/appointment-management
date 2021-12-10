@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm).subscribe(result => {
       this.authService.saveToken(result)
       this.navigateToHomePage(result.role)
+    }, error => {
+      console.log(error)
     })
   }
   navigateToHomePage(role: string) {

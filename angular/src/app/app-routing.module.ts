@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './authentication/components/login/login.component';
 import { RegisterComponent } from './authentication/components/register/register.component';
+import { InternalServerErrorComponent } from './core/components/internal-server-error/internal-server-error.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { UnauthorizedAccessComponent } from './core/components/unauthorized-access/unauthorized-access.component';
 import { AuthGuard } from './core/guard/auth.guard';
@@ -30,6 +31,10 @@ const routes: Routes = [
     path: "doctor",
     canActivate: [AuthGuard, DoctorGuard],
     loadChildren: () => import('./doctor-management/doctor-management.module').then(module => module.DoctorManagementModule)
+  },
+  {
+    path: "internal-server-error",
+    component: InternalServerErrorComponent
   },
   {
     path: "unauthorized-access",

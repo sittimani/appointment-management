@@ -5,8 +5,6 @@ import { PatientManagementRoutingModule } from './patient-management-routing.mod
 import { SharedModule } from '../shared/shared.module';
 import { BookAppointmentComponent } from './components/book-appointment/book-appointment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PatientAppointmentResolver } from '../core/resolver/patient-appointment.resolver';
-
 
 
 @NgModule({

@@ -6,21 +6,17 @@ import { Items } from '../../shared/interface/table-items.interface';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
 
   @Input() headers: string[] = []
   @Input() items!: Items[]
   @Input() isApproveButton = false
 
-  @Output() approveUser = new EventEmitter<string>()
+  @Output() approveUser = new EventEmitter<any>()
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
-  approve(id: string) {
-    this.approveUser.emit(id)
-    console.log(id)
+  approve(patient_id: string, time: string) {
+    this.approveUser.emit({patient_id, time})
   }
 }

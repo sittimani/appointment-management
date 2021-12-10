@@ -5,25 +5,30 @@ import { Router } from '@angular/router';
 import {
   emailValidator,
   invalidPassword,
-  MatchValidator,
-  selectValidator,
-  Controls
+  MatchValidator
 } from 'src/app/core';
+
+import { Controls } from '../../shared/interface/register-controls.interface';
+import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent {
 
   registrationForm!: FormGroup
   controls!: Controls
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.registrationForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      team: ['No', [Validators.required, selectValidator]],
       email: ['', [emailValidator]],
       password: ['', [Validators.required, invalidPassword]],
       confirmPassword: ['', [Validators.required]]
@@ -32,13 +37,17 @@ export class RegisterComponent {
   }
 
   register() {
-    console.log(this.registrationForm.value);
+    let value = this.registrationForm.value
+    value.role = "patient"
+    delete value.confirmPassword
+    this.authService.registerUser(value).subscribe(result => {
+      this.router.navigate(["login"])     
+    })
   }
 
   setControls() {
     this.controls = {
       name: this.registrationForm.get('name'),
-      team: this.registrationForm.get('team'),
       email: this.registrationForm.get('email'),
       password: this.registrationForm.get('password'),
       confirmPassword: this.registrationForm.get('confirmPassword')
