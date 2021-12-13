@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
@@ -8,35 +8,33 @@ import { AuthService } from '../../shared/service/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   loginForm = {
     email: '',
     password: ''
   }
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
     if (this.authService.isLoggedIn()) {
       const role = this.authService.getUserRole()
-      if (role) {
-        this.navigateToHomePage(role)
-      } else {
-        localStorage.clear()
-      }
+      role ? this.navigateToHomePage(role) : localStorage.clear()
     }
-  }
-
-  ngOnInit(): void {
   }
 
   login() {
     this.authService.login(this.loginForm).subscribe(result => {
       this.authService.saveToken(result)
+      this.toastr.success("Successfully Logged In!!!")
       this.navigateToHomePage(result.role)
     })
   }
+
   navigateToHomePage(role: string) {
     role === "doctor" ? this.router.navigate(["doctor"]) : this.router.navigate(["patient"])
   }
-
 }

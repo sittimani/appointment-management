@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './authentication/shared/service/auth.service';
 
 @Component({
@@ -7,22 +8,25 @@ import { AuthService } from './authentication/shared/service/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'angular';
   isDoctor = false;
   isLoggedIn = false;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.authService.isUserLoggedIn$.subscribe(isloggedIn => {
       this.isLoggedIn = isloggedIn
       if (isloggedIn)
         this.isDoctor = this.authService.getUserRole() === "doctor" ? true : false
     })
-  } 
+  }
 
   logout() {
-    localStorage.clear()
-    this.authService.isLoggedIn()
+    this.authService.logout()
     this.router.navigate(["login"])
   }
 }
