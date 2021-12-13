@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PatientAppointment } from '../../shared/interface/patient-appointment.interface';
+import { AppointmentRequest } from 'src/app/doctor-management/shared/interface/request.interface';
 
 @Component({
   selector: 'app-patient-appointment',
@@ -10,11 +10,11 @@ import { PatientAppointment } from '../../shared/interface/patient-appointment.i
 export class PatientAppointmentComponent {
 
   headers = ["doctor", "time", "status"]
-  myAppointments: PatientAppointment[] = []
+  myAppointments: AppointmentRequest[] = []
 
   constructor(private activateRoute: ActivatedRoute) {
     this.activateRoute.data.subscribe(result => {
-      this.myAppointments = result.product
+      this.myAppointments = result.patient
     })
   }
 }

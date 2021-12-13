@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './doctor-appointment.component.html',
   styleUrls: ['./doctor-appointment.component.css']
 })
+
 export class DoctorAppointmentComponent {
 
   headers = ["patient", "time"]
@@ -16,5 +17,4 @@ export class DoctorAppointmentComponent {
       this.myAppointments = result.appointments
     })
   }
-
 }

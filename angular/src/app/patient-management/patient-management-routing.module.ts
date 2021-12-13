@@ -9,15 +9,13 @@ const routes: Routes = [
     path: "",
     redirectTo: "my-appointments",
     pathMatch: "full"
-  },
-  {
+  }, {
     path: "my-appointments",
     component: PatientAppointmentComponent,
     resolve: {
-      product: PatientAppointmentResolver
+      patient: PatientAppointmentResolver
     }
-  },
-  {
+  }, {
     path: "book-appointment",
     component: BookAppointmentComponent
   }

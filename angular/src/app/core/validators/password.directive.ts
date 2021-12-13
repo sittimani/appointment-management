@@ -11,6 +11,7 @@ import { FormControl, NG_VALIDATORS, Validator } from '@angular/forms';
     }
   ]
 })
+
 export class PasswordDirective implements Validator {
 
   constructor() { }
@@ -22,7 +23,6 @@ export class PasswordDirective implements Validator {
 
 export function invalidPassword(control: FormControl) {
   const value = control.value;
-
   const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
   return regex.test(value) ? null : { invalidPassword: { value: value } }
 }
