@@ -3,7 +3,8 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AuthService } from 'src/app/authentication/shared/service/auth.service';
@@ -28,11 +29,17 @@ export class AuthInterceptor implements HttpInterceptor {
     })
     return next.handle(modifiedRequest).pipe(
       catchError(error => {
-        this.router.navigate(["internal-server-error"])
-        this.toastr.error(error.error)
-        console.log(error)
-        return throwError(error)
+        return this.handleError(error)
       })
     )
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.status === 500) {
+      this.router.navigate(["internal-server-error"])
+    }
+    this.toastr.error(error.error)
+    console.log(error)
+    return throwError(error)
   }
 }

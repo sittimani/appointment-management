@@ -1,7 +1,7 @@
 const router = require("express").Router()
-const controller = require("../controllers/auth.controller")
 const authValidator = require("../validators/auth.validator")
 const registerValidator = require("../validators/register.validator")
+const controller = require("../controllers/auth.controller")
 const errorHandler = require("../services/error-handler").use
 
 router.post("/login", [authValidator.validate], errorHandler(controller.login))

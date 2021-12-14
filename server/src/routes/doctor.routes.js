@@ -1,6 +1,6 @@
 const router = require("express").Router()
-const controller = require("../controllers/doctor.controller")
 const token = require("../middleware/token.middleware")
+const controller = require("../controllers/doctor.controller")
 const errorHandler = require("../services/error-handler").use
 const validator = require("../validators/appointment.validator").appointmentRequestValidator
 

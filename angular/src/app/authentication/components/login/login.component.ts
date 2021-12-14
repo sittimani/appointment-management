@@ -8,6 +8,7 @@ import { AuthService } from '../../shared/service/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent {
 
   loginForm = {
@@ -22,7 +23,7 @@ export class LoginComponent {
   ) {
     if (this.authService.isLoggedIn()) {
       const role = this.authService.getUserRole()
-      role ? this.navigateToHomePage(role) : localStorage.clear()
+      role ? this.navigateToHomePage(role) : this.authService.logout()
     }
   }
 

@@ -8,7 +8,6 @@ import {
   invalidPassword,
   MatchValidator
 } from 'src/app/core';
-
 import { Controls } from '../../shared/interface/register-controls.interface';
 import { AuthService } from '../../shared/service/auth.service';
 
@@ -39,14 +38,19 @@ export class RegisterComponent {
   }
 
   register() {
+    const value =this.getValue()
+      this.authService.registerUser(value).subscribe(result => {
+        this.authService.saveToken(result)
+        this.toastr.success("Registered Successfully !!!")
+        this.router.navigate(["patient"])
+      })
+  }
+
+  getValue() {
     let value = this.registrationForm.value
     value.role = "patient"
     delete value.confirmPassword
-    this.authService.registerUser(value).subscribe(result => {
-      this.authService.saveToken(result)
-      this.toastr.success("Registered Successfully !!!")
-      this.router.navigate(["patient"])
-    })
+    return value
   }
 
   setControls() {
