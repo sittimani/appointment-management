@@ -1,12 +1,12 @@
-const creditionals = require("../creditionals")
 const tokenMiddleware = require("../middleware/token.middleware")
+const model = require("../models/auth.model")
 
-function login(request, response) {
+async function login(request, response) {
     const { email, password } = request.body
-    const user = creditionals.getUser(email)
-    if (user) {
-        const result = checkPassword(user, password)
-        result ? loggedIn(response, user) : misMatchPassword(response)
+    const data = await model.find({ email: email })
+    if (data) {
+        const result = checkPassword(data, password)
+        result ? loggedIn(response, data) : misMatchPassword(response)
     } else {
         response.status(404).json("Not found")
     }
@@ -14,27 +14,34 @@ function login(request, response) {
 
 async function register(request, response) {
     body = request.body
-    body._id = (Math.round(Math.random() * 10000)).toString()
-    creditionals.setUser(body)
-    const token = await tokenMiddleware.createToken(body._id)
-    const data = {
-        _id: body._id,
-        token: token,
-        role: body.role
+    const user = new model(body)
+    const isUserExist = await model.find({ email: body.email })
+    if (isUserExist) {
+        response.status(403).json("User Already Exists")
+    } else {
+        const result = await user.save()
+        const token = await tokenMiddleware.createToken(result._id)
+        const data = {
+            _id: result._id,
+            token: token,
+            role: body.role
+        }
+        response.status(200).json(data)
     }
-    response.status(200).json(data)
 }
 
 function checkPassword(user, password) {
-    return user.password === password
+    console.log(user[0], password)
+    return user[0].password === password
 }
 
 async function loggedIn(response, user) {
-    const token = await tokenMiddleware.createToken(user._id)
+    console.log(user[0]._id)
+    const token = await tokenMiddleware.createToken(user[0]._id)
     const data = {
-        _id: user._id,
+        _id: user[0]._id,
         token: token,
-        role: user.role
+        role: user[0].role
     }
     response.status(200).json(data)
 }

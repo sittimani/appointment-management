@@ -21,4 +21,11 @@ const PORT = process.env.PORT
 
 app.listen(PORT, () => {
     console.log(`server running at ${PORT}`)
+    connection.connectToDB().then(connect => {
+        if (connect) {
+            console.log("Connected to mongoDB")
+        } else {
+            console.log("Not connected to mongoDB")
+        }
+    })
 })
