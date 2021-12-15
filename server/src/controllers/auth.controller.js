@@ -16,7 +16,8 @@ async function register(request, response) {
     body = request.body
     const user = new model(body)
     const isUserExist = await model.find({ email: body.email })
-    if (isUserExist) {
+    console.log(isUserExist)
+    if (isUserExist === null) {
         response.status(403).json("User Already Exists")
     } else {
         const result = await user.save()

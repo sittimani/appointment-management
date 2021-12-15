@@ -12,11 +12,11 @@ export class TableComponent {
   @Input() items!: Items[]
   @Input() isApproveButton = false
 
-  @Output() approveUser = new EventEmitter<any>()
+  @Output() approveUser = new EventEmitter<string>()
 
   constructor() { }
 
-  approve(patient_id: string, time: string) {
-    this.approveUser.emit({patient_id, time})
+  approve(id: string) {
+    this.approveUser.emit(id)
   }
 }
