@@ -29,15 +29,15 @@ export class AppointmentRequestComponent implements OnInit {
     })
   }
 
-  approveUser(data: AppointmentRequest) {
-    const { patient_id, time } = data
+  approveUser(id: string) {
     let request = this.requests.find((request) => {
-      return request.patient_id === patient_id && request.time === time
+      return request._id === id
     })
     if (request) {
       const result = confirm(`Do you want to confirm the appointment for ${request?.['patient'].toUpperCase()} at ${request?.time}`)
       request.status = result ? "Approved" : "Denied"
-      this.doctorService.updatePendingRequest(request).subscribe(result => {
+      delete request._id
+      this.doctorService.updatePendingRequest(id, request).subscribe(result => {
         this.toastr.success("Successfully permission updated !!!")
         this.router.navigate(["doctor"])
       })

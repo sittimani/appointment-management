@@ -1,19 +1,20 @@
-const dataService = require("../data")
+const model = require("../models/appointment.model")
+const authModel = require("../models/auth.model")
 
-
-function getMyAppointments(request, response) {
+async function getMyAppointments(request, response) {
     const id = request.params.id
-    const data = dataService.getData()
-    const result = data.filter(user => {
-        return user.patient_id === id
-    })
+    const result = await model.find({ patient_id: id })
     response.status(200).json(result)
 }
 
-function sendAppointment(request, response) {
-    const body = request.body
-    dataService.setData(body)
-    response.status(200).json("Successfully added")
+async function sendAppointment(request, response) {
+    let body = request.body
+    const patient = await authModel.findOne({ _id: body.patient_id })
+    body.patient = patient.name
+    const user = new model(body)
+    const result = await user.save()
+    if (result)
+        response.status(200).json("Successfully added")
 }
 
 module.exports = {

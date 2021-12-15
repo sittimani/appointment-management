@@ -3,7 +3,7 @@ const use = errorCatcher => (request, response) => {
         .catch(
             (error) => {
                 console.log(error)
-                response.status(500).json(error)
+                return response.status(500).json(error)
             }
         )
 }

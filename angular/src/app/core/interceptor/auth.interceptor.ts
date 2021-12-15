@@ -39,7 +39,6 @@ export class AuthInterceptor implements HttpInterceptor {
       this.router.navigate(["internal-server-error"])
     }
     this.toastr.error(error.error)
-    console.log(error)
     return throwError(error)
   }
 }

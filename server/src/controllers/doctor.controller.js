@@ -1,36 +1,47 @@
-const dataService = require("../data")
-const creditionals = require("../creditionals")
+const model = require("../models/appointment.model")
+const authModel = require("../models/auth.model")
 
-function getMyAppointments(request, response) {
+async function getMyAppointments(request, response) {
     const id = request.params.id
-    const data = dataService.getData()
-    const result = data.filter(user => {
-        return user.doctor_id === id && user.status === "Approved"
-    })
+    const filter = {
+        '$and': [{
+            'doctor_id': id
+        }, {
+            'status': 'Approved'
+        }]
+    }
+    const result = await model.find(filter)
     response.status(200).json(result)
 }
 
-function pendingAppointment(request, response) {
+async function pendingAppointment(request, response) {
     const id = request.params.id
-    const data = dataService.getData()
-    const result = data.filter(user => {
-        return user.doctor_id === id && user.status === "pending"
-    })
+    const filter = {
+        '$and': [{
+            'doctor_id': id
+        }, {
+            'status': 'pending'
+        }]
+    }
+    const fieldToSkip = {
+        createdAt: 0,
+        updatedAt: 0
+    }
+    const result = await model.find(filter, fieldToSkip)
     response.status(200).json(result)
 }
 
-function updateAppointment(request, response) {
+async function updateAppointment(request, response) {
+    const id = request.params.id
     const body = request.body
-    const data = dataService.getData()
-    const index = data.findIndex((user) => {
-        return user.patient_id === body.patient_id && user.doctor_id === body.doctor_id && user.time === body.time
-    })
-    dataService.updateData(index, body)
-    response.status(200).json("Updated successfully")
+    const result = await model.findByIdAndUpdate(id, body)
+    if (result)
+        response.status(200).json("Updated successfully")
 }
 
-function getDoctors(request, response) {
-    const doctors = creditionals.getDoctors()
+async function getDoctors(request, response) {
+    const fieldToSkip = { email: 0, password: 0, role: 0, createdAt: 0, updatedAt: 0 }
+    const doctors = await authModel.find({ role: "doctor" }, fieldToSkip)
     response.status(200).json(doctors)
 }
 

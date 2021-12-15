@@ -18,11 +18,11 @@ const appointmentSchema = new Schema({
     time: {
         type: String
     },
-    confirmation: {
+    status: {
         type: String
     }
 }, { timestamps: true, versionKey: false })
 
-const model = mongoose.model('appointmentSchema', appointmentSchema, 'creditionals')
+const model = mongoose.model('appointmentSchema', appointmentSchema, 'appointments')
 
 module.exports = model

@@ -19,7 +19,7 @@ export class DoctorDataService {
     return this.http.get<AppointmentRequest[]>(`${serverAddress}doctor-appointments/${this.authService.getUserId()}`)
   }
 
-  updatePendingRequest(body: AppointmentRequest) {
-    return this.http.put(`${serverAddress}update-appointment`, body)
+  updatePendingRequest(id: string, body: AppointmentRequest) {
+    return this.http.put(`${serverAddress}update-appointment/${id}`, body)
   }
 }
