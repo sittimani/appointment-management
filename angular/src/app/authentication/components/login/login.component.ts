@@ -38,4 +38,8 @@ export class LoginComponent {
   navigateToHomePage(role: string) {
     role === "doctor" ? this.router.navigate(["doctor"]) : this.router.navigate(["patient"])
   }
+
+  navigate() {
+    this.router.navigate(['forgot-password'])
+  }
 }

@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForgotPasswordComponent } from './authentication/components/forgot-password/forgot-password.component';
 import { LoginComponent } from './authentication/components/login/login.component';
 import { RegisterComponent } from './authentication/components/register/register.component';
+import { ResetPasswordComponent } from './authentication/components/reset-password/reset-password.component';
 import { InternalServerErrorComponent } from './core/components/internal-server-error/internal-server-error.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { UnauthorizedAccessComponent } from './core/components/unauthorized-access/unauthorized-access.component';
@@ -13,7 +15,7 @@ const routes: Routes = [
   {
     path: "",
     component: LoginComponent
-  }, 
+  },
   {
     path: "register",
     component: RegisterComponent
@@ -21,6 +23,14 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "forgot-password",
+    component: ForgotPasswordComponent
+  },
+  {
+    path: "reset-password/:token",
+    component: ResetPasswordComponent
   },
   {
     path: "patient",

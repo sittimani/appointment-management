@@ -6,5 +6,7 @@ const errorHandler = require("../services/error-handler").use
 
 router.post("/login", [authValidator.validate], errorHandler(controller.login))
 router.post("/register", [registerValidator.validate], errorHandler(controller.register))
+router.post("/send-reset-link", errorHandler(controller.sendResetLink))
+router.put("/reset-password/:token", errorHandler(controller.resetPassword))
 
 module.exports = router

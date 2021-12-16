@@ -36,9 +36,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
   handleError(error: HttpErrorResponse) {
     if (error.status === 500) {
-      this.router.navigate(["internal-server-error"])
+     // this.router.navigate(["internal-server-error"])
     }
-    this.toastr.error(error.error)
+    if (error.status === 0) {
+      this.toastr.error("Server seems to be unreachable")
+    } else
+      this.toastr.error(error.error)
     return throwError(error)
   }
 }

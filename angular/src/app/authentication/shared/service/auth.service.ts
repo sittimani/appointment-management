@@ -24,6 +24,14 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${serverAddress}login`, creditionals)
   }
 
+  sendResetLink(email: string) {
+    return this.http.post<string>(`${serverAddress}send-reset-link`, { email })
+  }
+
+  resetPassword(token: string, body: any) {
+    return this.http.put<string>(`${serverAddress}reset-password/${token}`, body)
+  }
+
   isLoggedIn() {
     const token = localStorage.getItem("token")
     this.isUserLoggedIn.next(false)
