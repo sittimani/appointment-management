@@ -1,5 +1,6 @@
 const tokenMiddleware = require("../middleware/token.middleware")
 const model = require("../models/auth.model")
+const nodeMailer = require("../services/node-mailer")
 
 async function login(request, response) {
     const { email, password } = request.body
@@ -16,7 +17,6 @@ async function register(request, response) {
     body = request.body
     const user = new model(body)
     const isUserExist = await model.find({ email: body.email })
-    console.log(isUserExist)
     if (isUserExist === null) {
         response.status(403).json("User Already Exists")
     } else {
@@ -32,12 +32,10 @@ async function register(request, response) {
 }
 
 function checkPassword(user, password) {
-    console.log(user[0], password)
     return user[0].password === password
 }
 
 async function loggedIn(response, user) {
-    console.log(user[0]._id)
     const token = await tokenMiddleware.createToken(user[0]._id)
     const data = {
         _id: user[0]._id,
@@ -51,7 +49,32 @@ function misMatchPassword(response) {
     response.status(400).json("Invalid password")
 }
 
+async function sendResetLink(request, response) {
+    const email = request.body.email
+    const result = await model.findOne({ email: email })
+    if (result)
+        return nodeMailer.sendEmail(request, response)
+    response.status(404).json("User Not Found !!!")
+}
+
+async function resetPassword(request, response) {
+    const body = request.body
+    const token = request.params.token
+    const payload = await tokenMiddleware.passwordToken(token)
+    if (payload) {
+        const result = await model.findOne({ email: payload })
+        if (result !== null) {
+            await model.updateOne({ email: payload }, { $set: { password: body.password } })
+            return response.status(200).json("Password Changed Successfully !!!")
+        }
+        return response.status(404).json("Invalid Url")
+    }
+    response.status(400).json("Url Time Exceeded !!!")
+}
+
 module.exports = {
     login,
-    register
+    register,
+    sendResetLink,
+    resetPassword
 }

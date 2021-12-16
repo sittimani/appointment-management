@@ -6,7 +6,7 @@ const validator = require("../validators/appointment.validator").appointmentRequ
 
 router.get("/doctor-appointments/:id", [token.verifyToken], errorHandler(controller.getMyAppointments))
 router.get("/pending-appointments/:id", [token.verifyToken], errorHandler(controller.pendingAppointment))
-router.put("/update-appointment", [token.verifyToken, validator], errorHandler(controller.updateAppointment))
+router.put("/update-appointment/:id", [token.verifyToken, validator], errorHandler(controller.updateAppointment))
 router.get("/get-doctors", [token.verifyToken], errorHandler(controller.getDoctors))
 
 module.exports = router

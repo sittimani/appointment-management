@@ -15,13 +15,16 @@
             <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="loginForm.password" #password="ngModel" minlength="8" passwordValidator required>
             <div *ngIf="password.touched" class="error-message">
                 <span *ngIf="password.errors?.required">Password is required</span>
-                <span *ngIf="password.errors?.invalidPassword">Password must contains atleast one uppercase, one lowercase, and one special characters</span>
+                <span *ngIf="password.errors?.invalidPassword">Password must contains atleast one uppercase, one
+                    lowercase, and one special characters</span>
             </div>
         </div>
 
         <div>
             <button type="submit">Login</button>
-            <button type="button" class="cancelbtn"> Cancel</button> Forgot <a routerLink> password? </a>
+            <button type="button" class="cancelbtn"> Cancel</button>
+            <button type="button" class="cancelbtn" (click)="navigate()">Forgot Password?</button>
+
         </div>
 
     </div>

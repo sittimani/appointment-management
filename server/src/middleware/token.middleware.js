@@ -27,7 +27,17 @@ function handleToken(request, response, headers) {
     }
 }
 
+function passwordToken(token) {
+    try {
+        const payload = jwt.verify(token, process.env.SECREAT_KEY)
+        return payload
+    } catch (error) {
+        return null
+    }
+}
+
 module.exports = {
     createToken,
-    verifyToken
+    verifyToken,
+    passwordToken
 }
