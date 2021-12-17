@@ -40,9 +40,8 @@ export class RegisterComponent {
   register() {
     const value =this.getValue()
       this.authService.registerUser(value).subscribe(result => {
-        this.authService.saveToken(result)
-        this.toastr.success("Registered Successfully !!!")
-        this.router.navigate(["patient"])
+        this.toastr.success(result)
+         this.router.navigate(["login"])
       })
   }
 

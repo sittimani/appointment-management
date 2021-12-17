@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   registerUser(body: UserCreditional) {
-    return this.http.post<AuthResponse>(`${serverAddress}register`, body)
+    return this.http.post<string>(`${serverAddress}register`, body)
   }
 
 
