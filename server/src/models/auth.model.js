@@ -14,6 +14,9 @@ const authSchema = new Schema({
     },
     password: {
         type: String
+    },
+    emailVerified: {
+        type: Boolean
     }
 }, { timestamps: true, versionKey: false })
 

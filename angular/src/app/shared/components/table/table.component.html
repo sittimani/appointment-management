@@ -1,4 +1,6 @@
-<table>
+<h1 *ngIf="isNoItem">No Items Found</h1>
+
+<table *ngIf="!isNoItem">
     <tr>
         <th *ngFor="let header of headers">{{header | uppercase}}</th>
         <th *ngIf="isApproveButton">Approve</th>
