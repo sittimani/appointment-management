@@ -1,8 +1,7 @@
 const tokenMiddleware = require("../middleware/token.middleware")
 const sendEmail = require("./node-mailer").sendEmail
 
-async function resetMail(request, response) {
-    const email = request.body.email
+async function resetMail(email) {
     const token = await tokenMiddleware.createToken(email)
     const data =
         `
@@ -23,11 +22,10 @@ Appoinment Booking Admin
         subject: "Password Reset Link",
         text: data
     }
-    return await sendEmail(request, response, mailOptions)
+    return await sendEmail(mailOptions)
 }
 
-async function verificationMail(request, response, id) {
-    const email = request.body.email
+async function verificationMail(email, id) {
     const data =
         `
 Hi,
@@ -47,7 +45,7 @@ Appoinment Booking Admin
         subject: "Account Activation Link",
         text: data
     }
-    return await sendEmail(request, response, mailOptions)
+    return await sendEmail(mailOptions)
 }
 
 module.exports = {

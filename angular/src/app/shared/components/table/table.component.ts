@@ -21,7 +21,6 @@ export class TableComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (this.items.length === 0)
       this.isNoItem = true
-    console.log(this.isNoItem)
     this.changeDetector.detectChanges()
   }
 

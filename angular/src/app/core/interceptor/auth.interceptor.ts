@@ -17,7 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private toastr: ToastrService
   ) { }
 
@@ -35,9 +34,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   handleError(error: HttpErrorResponse) {
-    if (error.status === 500) {
-     // this.router.navigate(["internal-server-error"])
-    }
     if (error.status === 0) {
       this.toastr.error("Server seems to be unreachable")
     } else

@@ -1,0 +1,19 @@
+POST http://localhost:3000/login
+content-type: application/json
+
+{
+    "email": "mani@gmail.com",
+    "password": "Mani@4515"
+}
+
+###
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "name": "manikandan",
+    "email": "patient@gmail.com",
+    "password": "Mani@4515",
+    "role": "patient"
+}

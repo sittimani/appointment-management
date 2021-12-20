@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer")
+const statusCode = require("../constants/status-code")
 
-async function sendEmail(request, response, mailOptions) {
+async function sendEmail(mailOptions) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -8,12 +9,13 @@ async function sendEmail(request, response, mailOptions) {
             pass: process.env.NODEMAILER_PASSWORD
         }
     })
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return response.status(500).json("cannot send mail")
-        }
-        response.status(200).json("mail send successfully")
-    })
+    try {
+        await transporter.sendMail(mailOptions)
+        return { statusCode: statusCode.ok, message: "mail send successfully" }
+    } catch (error) {
+        return { statusCode: statusCode.serverIssue, message: "Internal server problem" }
+    }
+
 }
 
 module.exports = {
