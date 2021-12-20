@@ -1,6 +1,15 @@
 POST http://localhost:3000/login
+content-type: application/json
 
 {
-    "email": "",
-    "password": "somethiing"
+    "email": "mani@gmail.com",
+    "password": "Mani@4515"
 }
+
+###
+
+GET http://localhost:3000/doctor-appointments/1233
+
+###  
+
+GET http://localhost:3000/get-doctors

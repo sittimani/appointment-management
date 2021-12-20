@@ -1,48 +1,28 @@
-const model = require("../models/appointment.model")
-const authModel = require("../models/auth.model")
+const service = require("../services/doctor.service")
+const responseSender = require("../services/response-sender")
 
 async function getMyAppointments(request, response) {
     const id = request.params.id
-    const filter = {
-        '$and': [{
-            'doctor_id': id
-        }, {
-            'status': 'Approved'
-        }]
-    }
-    const result = await model.find(filter)
-    response.status(200).json(result)
+    const result = await service.myAppointments(id)
+    responseSender(response, result)
 }
 
 async function pendingAppointment(request, response) {
     const id = request.params.id
-    const filter = {
-        '$and': [{
-            'doctor_id': id
-        }, {
-            'status': 'pending'
-        }]
-    }
-    const fieldToSkip = {
-        createdAt: 0,
-        updatedAt: 0
-    }
-    const result = await model.find(filter, fieldToSkip)
-    response.status(200).json(result)
+    const result = await service.pendingAppointment(id)
+    responseSender(response, result)
 }
 
 async function updateAppointment(request, response) {
     const id = request.params.id
     const body = request.body
-    const result = await model.findByIdAndUpdate(id, body)
-    if (result)
-        response.status(200).json("Updated successfully")
+    const result = await service.updateAppointment(id, body)
+    responseSender(response, result)
 }
 
 async function getDoctors(request, response) {
-    const fieldToSkip = { email: 0, password: 0, role: 0, createdAt: 0, updatedAt: 0 }
-    const doctors = await authModel.find({ role: "doctor" }, fieldToSkip)
-    response.status(200).json(doctors)
+    const result = await service.getDoctors()
+    responseSender(response, result)
 }
 
 module.exports = {

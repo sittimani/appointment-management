@@ -1,80 +1,43 @@
-const tokenMiddleware = require("../middleware/token.middleware")
 const model = require("../models/auth.model")
-const nodeMailer = require("../services/node-mailer")
+const service = require("../services/auth.service")
+const responseSender = require("../services/response-sender")
 
 async function login(request, response) {
     const { email, password } = request.body
-    const data = await model.find({ email: email })
-    if (data) {
-        const result = checkPassword(data, password)
-        result ? loggedIn(response, data) : misMatchPassword(response)
-    } else {
-        response.status(404).json("Not found")
-    }
+    const result = await service.loginUser(email, password)
+    responseSender(response, result)
 }
 
 async function register(request, response) {
-    body = request.body
-    const user = new model(body)
-    const isUserExist = await model.find({ email: body.email })
-    if (isUserExist === null) {
-        response.status(403).json("User Already Exists")
-    } else {
-        const result = await user.save()
-        const token = await tokenMiddleware.createToken(result._id)
-        const data = {
-            _id: result._id,
-            token: token,
-            role: body.role
-        }
-        response.status(200).json(data)
-    }
-}
-
-function checkPassword(user, password) {
-    return user[0].password === password
-}
-
-async function loggedIn(response, user) {
-    const token = await tokenMiddleware.createToken(user[0]._id)
-    const data = {
-        _id: user[0]._id,
-        token: token,
-        role: user[0].role
-    }
-    response.status(200).json(data)
-}
-
-function misMatchPassword(response) {
-    response.status(400).json("Invalid password")
+    let body = request.body
+    body.emailVerified = false
+    const result = await service.registerUser(body)
+    responseSender(response, result)
 }
 
 async function sendResetLink(request, response) {
     const email = request.body.email
-    const result = await model.findOne({ email: email })
-    if (result)
-        return nodeMailer.sendEmail(request, response)
-    response.status(404).json("User Not Found !!!")
+    const result = await service.resetLink(email)
+    responseSender(response, result)
 }
 
 async function resetPassword(request, response) {
     const body = request.body
     const token = request.params.token
-    const payload = await tokenMiddleware.passwordToken(token)
-    if (payload) {
-        const result = await model.findOne({ email: payload })
-        if (result !== null) {
-            await model.updateOne({ email: payload }, { $set: { password: body.password } })
-            return response.status(200).json("Password Changed Successfully !!!")
-        }
-        return response.status(404).json("Invalid Url")
-    }
-    response.status(400).json("Url Time Exceeded !!!")
+    const result = await service.resetPassword(body, token)
+    responseSender(response, result)
+}
+
+async function verifyUser(request, response) {
+    const id = request.params.id
+    const result = await service.verifyUser(id)
+    responseSender(response, result)
 }
 
 module.exports = {
     login,
     register,
     sendResetLink,
-    resetPassword
+    resetPassword,
+    verifyUser
 }
