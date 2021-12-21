@@ -6,7 +6,6 @@ async function login(request, response) {
     const { email, password } = request.body
     const result = await service.loginUser(email, password)
     responseSender(response, result)
-
 }
 
 async function register(request, response) {
@@ -33,14 +32,6 @@ async function verifyUser(request, response) {
     const id = request.params.id
     const result = await service.verifyUser(id)
     responseSender(response, result)
-}
-
-async function verifyUser(request, response) {
-    const id = request.params.id
-    const result = await model.updateOne({ _id: id }, { $set: { emailVerified: true } })
-    if (result.modifiedCount === 0)
-        return response.status(400).json("Invalid Url !!!")
-    response.status(200).json("User verified Successfully")
 }
 
 module.exports = {
