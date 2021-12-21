@@ -9,7 +9,6 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { AuthService } from 'src/app/authentication/shared/service/auth.service';
 import { catchError } from 'rxjs/operators'
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()

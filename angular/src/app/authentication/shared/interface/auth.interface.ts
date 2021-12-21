@@ -1,6 +1,7 @@
 export interface LoginCreditionals {
     email: string,
-    password: string
+    password: string,
+    is24HrsLogin?: boolean
 }
 
 export interface AuthResponse {

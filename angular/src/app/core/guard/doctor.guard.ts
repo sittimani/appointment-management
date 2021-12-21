@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/shared/service/auth.service';
 
 @Injectable({
@@ -15,6 +14,7 @@ export class DoctorGuard implements CanActivate {
     return role === "doctor" ? true : this.unauthorizedAccess();
   }
   unauthorizedAccess() {
+    console.log("called doctor")
     this.router.navigate(["unauthorized-access"])
     return false
   }

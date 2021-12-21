@@ -13,6 +13,7 @@ export class DoctorAppointmentComponent {
   myAppointments = []
 
   constructor(private activedRouted: ActivatedRoute) { 
+    console.log("doctor appointment")
     this.activedRouted.data.subscribe(result => {
       this.myAppointments = result.appointments
     })
