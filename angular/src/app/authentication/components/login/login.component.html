@@ -21,6 +21,10 @@
         </div>
 
         <div>
+            <input type="checkbox" name="is24hrsLogin" [(ngModel)]="loginForm.is24HrsLogin"><label>Remember for 24 Hrs </label>
+        </div>
+
+        <div>
             <button type="submit">Login</button>
             <button type="button" class="cancelbtn"> Cancel</button>
             <button type="button" class="cancelbtn" (click)="navigate()">Forgot Password?</button>

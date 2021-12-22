@@ -1,12 +1,12 @@
 const model = require("../models/auth.model")
 const service = require("../services/auth.service")
+const response = require("../services/response-sender")
 const responseSender = require("../services/response-sender")
 
 async function login(request, response) {
     const { email, password } = request.body
     const result = await service.loginUser(email, password)
     responseSender(response, result)
-
 }
 
 async function register(request, response) {
@@ -35,12 +35,10 @@ async function verifyUser(request, response) {
     responseSender(response, result)
 }
 
-async function verifyUser(request, response) {
-    const id = request.params.id
-    const result = await model.updateOne({ _id: id }, { $set: { emailVerified: true } })
-    if (result.modifiedCount === 0)
-        return response.status(400).json("Invalid Url !!!")
-    response.status(200).json("User verified Successfully")
+async function getMyMenu(request, respone) {
+    const token = request.params.token
+    const result = await service.getMenu(token)
+    responseSender(respone, result)
 }
 
 module.exports = {
@@ -48,5 +46,6 @@ module.exports = {
     register,
     sendResetLink,
     resetPassword,
-    verifyUser
+    verifyUser,
+    getMyMenu
 }

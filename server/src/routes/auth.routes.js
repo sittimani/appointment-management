@@ -9,6 +9,7 @@ router.post("/register", [registerValidator.validate], errorHandler(controller.r
 router.post("/send-reset-link", errorHandler(controller.sendResetLink))
 router.put("/reset-password/:token", errorHandler(controller.resetPassword))
 
+router.get("/get-menu/:token", controller.getMyMenu)
 router.get("/verify-user/:id", errorHandler(controller.verifyUser))
 
 module.exports = router

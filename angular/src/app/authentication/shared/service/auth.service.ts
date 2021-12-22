@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { serverAddress } from 'src/environments/environment.prod';
-import { AuthResponse, LoginCreditionals, UserCreditional } from '../interface/auth.interface';
+import {
+  AuthResponse,
+  LoginCreditionals,
+  UserCreditional
+} from '../interface/auth.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -33,44 +37,67 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    const token = localStorage.getItem("token")
+    const token = this.getItem("token")
     this.isUserLoggedIn.next(false)
     if (token)
       this.isUserLoggedIn.next(true)
     return token
   }
 
+  getItem(item: string) {
+    let value = sessionStorage.getItem(item)
+    if (!value)
+      value = localStorage.getItem(item)
+    if (value)
+      return value
+    return ""
+  }
+
+  getToken() {
+    return this.getItem("token")
+  }
+
   registerUser(body: UserCreditional) {
     return this.http.post<string>(`${serverAddress}register`, body)
   }
 
+  saveToken(response: AuthResponse, is24Hrs: boolean) {
+    if (is24Hrs)
+      this.saveToLocalStorage(response)
+    else
+      this.saveToSessionStorage(response)
+    this.isLoggedIn()
+  }
 
-  saveToken(response: AuthResponse) {
+  saveToLocalStorage(response: AuthResponse) {
     localStorage.setItem("token", response.token)
     localStorage.setItem("role", response.role)
     localStorage.setItem("id", response._id)
-    this.isLoggedIn()
+  }
+
+  saveToSessionStorage(response: AuthResponse) {
+    sessionStorage.setItem("token", response.token)
+    sessionStorage.setItem("role", response.role)
+    sessionStorage.setItem("id", response._id)
   }
 
   getUserId() {
-    return localStorage.getItem("id")
+    return this.getItem("id")
   }
 
   getUserRole() {
-    return localStorage.getItem("role")
-  }
-
-  getToken() {
-    const token = localStorage.getItem("token")
-    if (token)
-      return token
-    return ""
+    return this.getItem("role")
   }
 
   logout() {
-    localStorage.removeItem("token")
-    localStorage.removeItem("role")
-    localStorage.removeItem("id")
+    this.removeItem("token")
+    this.removeItem("role")
+    this.removeItem("id")
     this.isLoggedIn()
+  }
+
+  removeItem(item: string) {
+    sessionStorage.removeItem(item)
+    localStorage.removeItem(item)
   }
 }

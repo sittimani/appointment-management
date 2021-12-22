@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { MenuService } from 'src/app/core/services/menu.service';
+import { LoginCreditionals } from '../../shared/interface/auth.interface';
 import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
@@ -13,13 +16,15 @@ export class LoginComponent {
 
   loginForm = {
     email: '',
-    password: ''
+    password: '',
+    is24HrsLogin: false
   }
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private menuService: MenuService
   ) {
     if (this.authService.isLoggedIn()) {
       const role = this.authService.getUserRole()
@@ -28,9 +33,13 @@ export class LoginComponent {
   }
 
   login() {
-    this.authService.login(this.loginForm).subscribe(result => {
-      this.authService.saveToken(result)
+    const is24Hrs = this.loginForm.is24HrsLogin
+    let loginFormValue: LoginCreditionals = this.loginForm
+    delete loginFormValue["is24HrsLogin"]
+    this.authService.login(loginFormValue).subscribe(result => {
+      this.authService.saveToken(result, is24Hrs)
       this.toastr.success("Successfully Logged In!!!")
+      this.menuService.getMenu()
       this.navigateToHomePage(result.role)
     })
   }

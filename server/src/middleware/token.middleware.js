@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 const statusCode = require("../constants/status-code")
 
 async function createToken(data) {
-    const token = await jwt.sign(data.toString(), process.env.SECREAT_KEY)
+    const token = await jwt.sign(data, process.env.SECREAT_KEY)
     return token
 }
 
@@ -31,14 +31,27 @@ function handleToken(request, response, headers) {
 function passwordToken(token) {
     try {
         const payload = jwt.verify(token, process.env.SECREAT_KEY)
-        return payload
+        return payload.id
     } catch (error) {
         return null
+    }
+}
+
+async function getMyRole(token) {
+    console.log("token", token)
+    try {
+        if (token === "no login")
+            return token
+        const payload = await jwt.verify(token, process.env.SECREAT_KEY)
+        return payload.role
+    } catch (error) {
+        return "no login"
     }
 }
 
 module.exports = {
     createToken,
     verifyToken,
-    passwordToken
+    passwordToken,
+    getMyRole
 }
