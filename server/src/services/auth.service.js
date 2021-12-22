@@ -1,4 +1,5 @@
 const model = require("../models/auth.model")
+const menuModel = require("../models/menu.model")
 const tokenMiddleware = require("../middleware/token.middleware")
 const statusCode = require("../constants/status-code")
 const mailSender = require("../services/mail-sender")
@@ -27,7 +28,7 @@ function misMatchPassword() {
 }
 
 async function loggedIn(user) {
-    const token = await tokenMiddleware.createToken(user._id)
+    const token = await tokenMiddleware.createToken({ id: user._id, role: user.role })
     const data = {
         _id: user._id,
         token: token,
@@ -77,10 +78,18 @@ async function verifyUser(id) {
     return { statusCode: statusCode.ok, message: "User verified Successfully" }
 }
 
+async function getMenu(token) {
+    const data = await tokenMiddleware.getMyRole(token)
+    const result = await menuModel.findOne({ _id: data })
+    console.log(data, result)
+    return { statusCode: statusCode.ok, message: result.menus }
+}
+
 module.exports = {
     loginUser,
     registerUser,
     resetLink,
     resetPassword,
+    getMenu,
     verifyUser
 }

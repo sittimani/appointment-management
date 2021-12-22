@@ -1,4 +1,4 @@
-<nav>
+<!-- <nav>
     <ul *ngIf="!isLoggedIn">
         <li>
             <a routerLink="login">Login</a>
@@ -31,6 +31,16 @@
             <a (click)="logout()">Logout</a>
         </li>
     </ul>
-</nav>
+</nav> -->
 
+<nav>
+    <ul>
+        <li *ngFor='let menu of menuItems'>
+            <a [routerLink]="menu.path">{{menu.name}}</a>
+        </li>
+        <li *ngIf='isLoggedIn'>
+            <a (click)="logout()">Logout</a>
+        </li>
+    </ul>
+</nav>
 <router-outlet></router-outlet>

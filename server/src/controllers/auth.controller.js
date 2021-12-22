@@ -1,5 +1,6 @@
 const model = require("../models/auth.model")
 const service = require("../services/auth.service")
+const response = require("../services/response-sender")
 const responseSender = require("../services/response-sender")
 
 async function login(request, response) {
@@ -34,10 +35,17 @@ async function verifyUser(request, response) {
     responseSender(response, result)
 }
 
+async function getMyMenu(request, respone) {
+    const token = request.params.token
+    const result = await service.getMenu(token)
+    responseSender(respone, result)
+}
+
 module.exports = {
     login,
     register,
     sendResetLink,
     resetPassword,
-    verifyUser
+    verifyUser,
+    getMyMenu
 }

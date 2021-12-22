@@ -45,11 +45,11 @@ export class AuthService {
   }
 
   getItem(item: string) {
-    let token = sessionStorage.getItem(item)
-    if (!token)
-      token = localStorage.getItem(item)
-    if (token)
-      return token
+    let value = sessionStorage.getItem(item)
+    if (!value)
+      value = localStorage.getItem(item)
+    if (value)
+      return value
     return ""
   }
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { MenuService } from 'src/app/core/services/menu.service';
 import { LoginCreditionals } from '../../shared/interface/auth.interface';
 import { AuthService } from '../../shared/service/auth.service';
 
@@ -22,7 +23,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private menuService: MenuService
   ) {
     if (this.authService.isLoggedIn()) {
       const role = this.authService.getUserRole()
@@ -37,6 +39,7 @@ export class LoginComponent {
     this.authService.login(loginFormValue).subscribe(result => {
       this.authService.saveToken(result, is24Hrs)
       this.toastr.success("Successfully Logged In!!!")
+      this.menuService.getMenu()
       this.navigateToHomePage(result.role)
     })
   }
