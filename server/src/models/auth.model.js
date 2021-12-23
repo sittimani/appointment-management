@@ -17,6 +17,9 @@ const authSchema = new Schema({
     },
     emailVerified: {
         type: Boolean
+    },
+    invalidCount: {
+        type: Number
     }
 }, { timestamps: true, versionKey: false })
 

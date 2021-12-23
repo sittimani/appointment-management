@@ -7,14 +7,14 @@ const mailSender = require("../services/mail-sender")
 async function loginUser(email, password) {
     const data = await model.findOne({ email: email })
     if (data)
-        return await checkCreditionals(data, password)
+        return data.invalidCount <= 0 ? await mailSender.activationMail(data.email, data._id) : await checkCreditionals(data, password)
     return { statusCode: statusCode.notFound, message: "Not found" }
 }
 
 function checkCreditionals(data, password) {
     if (data.emailVerified) {
         const result = checkPassword(data, password)
-        return result ? loggedIn(data) : misMatchPassword()
+        return result ? loggedIn(data) : misMatchPassword(data)
     }
     return { statusCode: statusCode.badRequest, message: "Email is not verified yet" }
 }
@@ -23,7 +23,8 @@ function checkPassword(user, password) {
     return user.password === password
 }
 
-function misMatchPassword() {
+async function misMatchPassword(user) {
+    await model.updateOne({ email: user.email }, { $set: { invalidCount: user.invalidCount - 1 } })
     return { statusCode: statusCode.badRequest, message: "Invalid Password" }
 }
 
@@ -34,6 +35,7 @@ async function loggedIn(user) {
         token: token,
         role: user.role
     }
+    await reVerifyUser(user._id)
     return { statusCode: statusCode.ok, message: data }
 }
 
@@ -81,8 +83,12 @@ async function verifyUser(id) {
 async function getMenu(token) {
     const data = await tokenMiddleware.getMyRole(token)
     const result = await menuModel.findOne({ _id: data })
-    console.log(data, result)
     return { statusCode: statusCode.ok, message: result.menus }
+}
+
+async function reVerifyUser(id) {
+    await model.updateOne({ _id: id }, { invalidCount: 3 })
+    return { statusCode: statusCode.ok, message: "Successfully account activated!!!" }
 }
 
 module.exports = {
@@ -91,5 +97,6 @@ module.exports = {
     resetLink,
     resetPassword,
     getMenu,
-    verifyUser
+    verifyUser,
+    reVerifyUser
 }

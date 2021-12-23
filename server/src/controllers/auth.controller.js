@@ -1,6 +1,4 @@
-const model = require("../models/auth.model")
 const service = require("../services/auth.service")
-const response = require("../services/response-sender")
 const responseSender = require("../services/response-sender")
 
 async function login(request, response) {
@@ -12,6 +10,7 @@ async function login(request, response) {
 async function register(request, response) {
     let body = request.body
     body.emailVerified = false
+    body.invalidCount = 3
     const result = await service.registerUser(body)
     responseSender(response, result)
 }
@@ -41,11 +40,18 @@ async function getMyMenu(request, respone) {
     responseSender(respone, result)
 }
 
+async function reVerifyUser(request, response) {
+    const id = request.params.id
+    const result = await service.reVerifyUser(id)
+    responseSender(response, result)
+}
+
 module.exports = {
     login,
     register,
     sendResetLink,
     resetPassword,
     verifyUser,
-    getMyMenu
+    getMyMenu,
+    reVerifyUser
 }

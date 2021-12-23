@@ -13,6 +13,7 @@ async function sendEmail(mailOptions) {
         await transporter.sendMail(mailOptions)
         return { statusCode: statusCode.ok, message: "mail send successfully" }
     } catch (error) {
+        console.log(error)
         return { statusCode: statusCode.serverIssue, message: "Internal server problem" }
     }
 
