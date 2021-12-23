@@ -11,5 +11,6 @@ router.put("/reset-password/:token", errorHandler(controller.resetPassword))
 
 router.get("/get-menu/:token", controller.getMyMenu)
 router.get("/verify-user/:id", errorHandler(controller.verifyUser))
+router.get("/reactivate-account/:id", controller.reVerifyUser)
 
 module.exports = router

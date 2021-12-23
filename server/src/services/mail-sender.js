@@ -48,7 +48,36 @@ Appoinment Booking Admin
     return await sendEmail(mailOptions)
 }
 
+async function activationMail(email, id) {
+    const data =
+        `
+Hi,
+
+Greetings.
+
+Your Account was locked due to three incorrect password. Please follow the below link to reactivate link.
+
+link: http://localhost:3000/reactivate-account/${id}
+
+Regards,
+Appoinment Booking Admin
+`
+    let mailOptions = {
+        from: process.env.NODEMAILER_EMAIL,
+        to: email,
+        subject: "Account Reactivation Link",
+        text: data
+    }
+    const result = await sendEmail(mailOptions)
+    if (result.statusCode === 200) {
+        result.statusCode = 400
+        result.message = "Reactivation mail has been send to your account!!!"
+    }
+    return result
+}
+
 module.exports = {
     resetMail,
-    verificationMail
+    verificationMail,
+    activationMail
 }

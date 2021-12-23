@@ -1,38 +1,3 @@
-<!-- <nav>
-    <ul *ngIf="!isLoggedIn">
-        <li>
-            <a routerLink="login">Login</a>
-        </li>
-        <li>
-            <a routerLink="register">Register</a>
-        </li>
-    </ul>
-
-    <ul *ngIf="isLoggedIn && !isDoctor">
-        <li>
-            <a routerLink="patient">My Appointments</a>
-        </li>
-        <li>
-            <a routerLink="patient/book-appointment">book-appointment</a>
-        </li>
-        <li>
-            <a (click)="logout()">Logout</a>
-        </li>
-    </ul>
-
-    <ul *ngIf="isLoggedIn && isDoctor">
-        <li>
-            <a routerLink="doctor">Doctor Appointments</a>
-        </li>
-        <li>
-            <a routerLink="doctor/requests">Appointment Request</a>
-        </li>
-        <li>
-            <a (click)="logout()">Logout</a>
-        </li>
-    </ul>
-</nav> -->
-
 <nav>
     <ul>
         <li *ngFor='let menu of menuItems'>
