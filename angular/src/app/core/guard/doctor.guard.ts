@@ -13,8 +13,8 @@ export class DoctorGuard implements CanActivate {
     const role = this.authService.getUserRole()
     return role === "doctor" ? true : this.unauthorizedAccess();
   }
+
   unauthorizedAccess() {
-    console.log("called doctor")
     this.router.navigate(["unauthorized-access"])
     return false
   }

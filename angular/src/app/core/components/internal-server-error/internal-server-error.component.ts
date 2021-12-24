@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './internal-server-error.component.html',
   styleUrls: ['./internal-server-error.component.css']
 })
-export class InternalServerErrorComponent implements OnInit {
+export class InternalServerErrorComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
