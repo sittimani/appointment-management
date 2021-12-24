@@ -38,7 +38,6 @@ function passwordToken(token) {
 }
 
 async function getMyRole(token) {
-    console.log("token", token)
     try {
         if (token === "no login")
             return token

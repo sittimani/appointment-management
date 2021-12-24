@@ -6,6 +6,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { InternalServerErrorComponent } from './components/internal-server-error/internal-server-error.component';
 import { UnauthorizedAccessComponent } from './components/unauthorized-access/unauthorized-access.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -15,12 +19,16 @@ import { UnauthorizedAccessComponent } from './components/unauthorized-access/un
     PasswordDirective,
     PageNotFoundComponent,
     InternalServerErrorComponent,
-    UnauthorizedAccessComponent
+    UnauthorizedAccessComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [
     EmailDirective,
