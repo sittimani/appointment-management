@@ -4,12 +4,14 @@ import { ForgotPasswordComponent } from './authentication/components/forgot-pass
 import { LoginComponent } from './authentication/components/login/login.component';
 import { RegisterComponent } from './authentication/components/register/register.component';
 import { ResetPasswordComponent } from './authentication/components/reset-password/reset-password.component';
+import { UserProfileComponent } from './authentication/components/user-profile/user-profile.component';
 import { InternalServerErrorComponent } from './core/components/internal-server-error/internal-server-error.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { UnauthorizedAccessComponent } from './core/components/unauthorized-access/unauthorized-access.component';
 import { AuthGuard } from './core/guard/auth.guard';
 import { DoctorGuard } from './core/guard/doctor.guard';
 import { PatientGuard } from './core/guard/patient.guard';
+import { UserProfileResolver } from './core/resolver/user-profile.resolver';
 
 const routes: Routes = [
   {
@@ -31,6 +33,13 @@ const routes: Routes = [
   {
     path: "reset-password/:token",
     component: ResetPasswordComponent
+  },
+  {
+    path: "my-profile",
+    component: UserProfileComponent,
+    resolve: {
+      user: UserProfileResolver
+    }
   },
   {
     path: "patient",

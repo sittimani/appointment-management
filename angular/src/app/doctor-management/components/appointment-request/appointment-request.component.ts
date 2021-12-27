@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DialogService } from 'src/app/core/services/dialog.service';
 import { AppointmentRequest } from '../../shared/interface/request.interface';
 import { DoctorDataService } from '../../shared/service/doctor-data.service';
 
@@ -20,7 +21,8 @@ export class AppointmentRequestComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private doctorService: DoctorDataService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -42,5 +44,17 @@ export class AppointmentRequestComponent implements OnInit {
         this.router.navigate(["doctor"])
       })
     }
+  }
+
+  getConfirmation(request: AppointmentRequest) {
+    const question = `Do you want to confirm the appointment for ${request?.['patient'].toUpperCase()} at ${request?.time}`
+    this.dialogService.setDetails("Confirm", "Cancel", question)
+    this.dialogService.openDialog().afterClosed().subscribe(result => {
+      if(result)
+        request.status = "Approved"
+      if(result === false)
+        request.status = "Denied"
+      
+    })
   }
 }

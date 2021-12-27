@@ -7,7 +7,8 @@ export interface LoginCreditionals {
 export interface AuthResponse {
     token: string,
     role: string,
-    _id: string
+    _id: string,
+    name: string
 }
 
 export interface UserCreditional {

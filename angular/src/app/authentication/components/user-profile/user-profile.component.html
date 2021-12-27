@@ -1,0 +1,28 @@
+<form [formGroup]="userProfileForm">
+    <div class="container">
+
+        <div class="heading">User Profile</div>
+
+        <div>
+            <label>Name : </label>
+            <input type="text" placeholder="Enter Your Name" name="username" formControlName="name" autocomplete="off">
+            <div *ngIf="controls.name?.touched" class="error-message">
+                <span *ngIf="controls.name?.errors?.required">Name is required</span>
+            </div>
+        </div>
+
+        <div>
+            <label>Email Address : </label>
+            <input type="text" placeholder="Enter Your Email Address" name="username" formControlName="email">
+            <div *ngIf="controls.email?.touched" class="error-message">
+                <span *ngIf="controls.email?.errors?.invalidEmail">Invalid email address</span>
+            </div>
+        </div>
+
+        <div>
+            <button type="button" *ngIf="isProfilePage" (click)="triggerUpdateProfileForm()">Update Profile</button>
+            <button type="button" *ngIf="!isProfilePage" (click)="updateProfile()"> Update Details</button>
+        </div>
+
+    </div>
+</form>
