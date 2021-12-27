@@ -13,8 +13,9 @@ import { MenuService } from './core/services/menu.service';
 })
 
 export class AppComponent {
-  title = 'angular';
-  isLoggedIn = false;
+  title = 'angular'
+  isLoggedIn = false
+  name: string = ""
   menuItems: Menu[] = []
 
   constructor(
@@ -23,7 +24,6 @@ export class AppComponent {
     private menuService: MenuService,
     private dialogService: DialogService
   ) {
-
     this.menuService.getMenu()
     this.menuService.menuSubject$.subscribe(menuList => {
       this.menuItems = menuList
@@ -31,6 +31,7 @@ export class AppComponent {
     this.authService.isUserLoggedIn$.subscribe(isloggedIn => {
       this.isLoggedIn = isloggedIn
     })
+    this.name = this.authService.getUserName()
   }
 
   logout() {

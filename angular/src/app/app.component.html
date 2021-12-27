@@ -1,11 +1,21 @@
 <nav>
     <ul>
+        <li *ngIf='isLoggedIn'>
+            <div class="dropdown">
+                <a class="dropbtn">
+                   manikandan
+                </a>
+                <div class="dropdown-content">
+                    <a routerLink="my-profile">My Profile</a>
+                    <a href="#">Reset Password</a>
+                    <a (click)="logout()">Logout</a>
+                </div>
+            </div>
+        </li>
         <li *ngFor='let menu of menuItems'>
             <a [routerLink]="menu.path">{{menu.name}}</a>
         </li>
-        <li *ngIf='isLoggedIn'>
-            <a (click)="logout()">Logout</a>
-        </li>
+
     </ul>
 </nav>
 <router-outlet></router-outlet>

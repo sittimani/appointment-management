@@ -33,7 +33,8 @@ async function loggedIn(user) {
     const data = {
         _id: user._id,
         token: token,
-        role: user.role
+        role: user.role,
+        name: user.name
     }
     await reVerifyUser(user._id)
     return { statusCode: statusCode.ok, message: data }
@@ -91,6 +92,11 @@ async function reVerifyUser(id) {
     return { statusCode: statusCode.ok, message: "Successfully account activated!!!" }
 }
 
+async function getUser(id) {
+    const result = await model.findOne({ _id: id }, { _id: 0, createdAt: 0, updatedAt: 0, password: 0, invalidCount: 0, emailVerified: 0 })
+    return { statusCode: statusCode.ok, message: result }
+}
+
 module.exports = {
     loginUser,
     registerUser,
@@ -98,5 +104,6 @@ module.exports = {
     resetPassword,
     getMenu,
     verifyUser,
-    reVerifyUser
+    reVerifyUser,
+    getUser
 }

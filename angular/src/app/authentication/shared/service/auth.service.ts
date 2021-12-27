@@ -32,6 +32,11 @@ export class AuthService {
     return this.http.post<string>(`${serverAddress}send-reset-link`, { email })
   }
 
+  getUserDetails() {
+    const id = this.getUserId()
+    return this.http.get(`${serverAddress}get-user/${id}`)
+  }
+
   resetPassword(token: string, body: any) {
     return this.http.put<string>(`${serverAddress}reset-password/${token}`, body)
   }
@@ -73,12 +78,14 @@ export class AuthService {
     localStorage.setItem("token", response.token)
     localStorage.setItem("role", response.role)
     localStorage.setItem("id", response._id)
+    localStorage.setItem("name", response.name)
   }
 
   saveToSessionStorage(response: AuthResponse) {
     sessionStorage.setItem("token", response.token)
     sessionStorage.setItem("role", response.role)
     sessionStorage.setItem("id", response._id)
+    sessionStorage.setItem("name", response.name)
   }
 
   getUserId() {
@@ -87,6 +94,10 @@ export class AuthService {
 
   getUserRole() {
     return this.getItem("role")
+  }
+
+  getUserName() {
+    return this.getItem("name")
   }
 
   logout() {

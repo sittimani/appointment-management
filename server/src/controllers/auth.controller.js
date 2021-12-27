@@ -46,6 +46,13 @@ async function reVerifyUser(request, response) {
     responseSender(response, result)
 }
 
+async function getUser(request, response) {
+    console.log("user")
+    const id = request.params.id
+    const result = await service.getUser(id)
+    responseSender(response, result)
+}
+
 module.exports = {
     login,
     register,
@@ -53,5 +60,6 @@ module.exports = {
     resetPassword,
     verifyUser,
     getMyMenu,
-    reVerifyUser
+    reVerifyUser,
+    getUser
 }

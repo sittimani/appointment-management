@@ -13,4 +13,6 @@ router.get("/get-menu/:token", controller.getMyMenu)
 router.get("/verify-user/:id", errorHandler(controller.verifyUser))
 router.get("/reactivate-account/:id", controller.reVerifyUser)
 
+router.get("/get-user/:id", errorHandler(controller.getUser))
+
 module.exports = router

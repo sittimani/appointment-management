@@ -24,6 +24,7 @@ import { DialogComponent } from './core/components/dialog/dialog.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    MatIconModule,
     FormsModule,
     HttpClientModule,
     SharedModule,
