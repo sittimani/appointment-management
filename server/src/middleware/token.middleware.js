@@ -20,7 +20,7 @@ function handleToken(request, response, headers) {
     try {
         const token = headers.split(" ")[1]
         if (!token)
-            response.status(statusCode.unauthorized).json("Unauthorized Access")
+            return response.status(statusCode.unauthorized).json("Unauthorized Access")
         const payload = jwt.verify(token, process.env.SECREAT_KEY)
         request.user = payload
     } catch (error) {
@@ -28,9 +28,9 @@ function handleToken(request, response, headers) {
     }
 }
 
-function passwordToken(token) {
+async function passwordToken(token) {
     try {
-        const payload = jwt.verify(token, process.env.SECREAT_KEY)
+        const payload = await jwt.verify(token, process.env.SECREAT_KEY)
         return payload.id
     } catch (error) {
         return null

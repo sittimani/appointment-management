@@ -34,11 +34,15 @@ export class AuthService {
 
   getUserDetails() {
     const id = this.getUserId()
-    return this.http.get(`${serverAddress}get-user/${id}`)
+    return this.http.get<UserCreditional>(`${serverAddress}get-user/${id}`)
   }
 
   resetPassword(token: string, body: any) {
     return this.http.put<string>(`${serverAddress}reset-password/${token}`, body)
+  }
+
+  updateProfile(user: UserCreditional) {
+    return this.http.put<string>(`${serverAddress}update-profile/${this.getUserId()}`, user)
   }
 
   isLoggedIn() {

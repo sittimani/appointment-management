@@ -93,8 +93,19 @@ async function reVerifyUser(id) {
 }
 
 async function getUser(id) {
-    const result = await model.findOne({ _id: id }, { _id: 0, createdAt: 0, updatedAt: 0, password: 0, invalidCount: 0, emailVerified: 0 })
+    const result = await model.findOne({ _id: id }, { createdAt: 0, updatedAt: 0, password: 0, invalidCount: 0, emailVerified: 0 })
     return { statusCode: statusCode.ok, message: result }
+}
+
+async function updateProfile(id, body) {
+    console.log(body, id)
+    const data = await model.findOne({ _id: id })
+    await model.findByIdAndUpdate(data._id, body)
+    if (data.email !== body.email) {
+        await model.findByIdAndUpdate(data._id, { emailVerified: false })
+        await mailSender.verificationMail(body.email, id)
+    }
+    return { statusCode: statusCode.ok, message: "User Details Updated!!!" }
 }
 
 module.exports = {
@@ -105,5 +116,6 @@ module.exports = {
     getMenu,
     verifyUser,
     reVerifyUser,
-    getUser
+    getUser,
+    updateProfile
 }

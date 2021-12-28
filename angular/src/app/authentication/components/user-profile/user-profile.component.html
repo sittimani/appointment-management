@@ -19,10 +19,21 @@
             </div>
         </div>
 
+        <div *ngIf="!isProfilePage">
+            <label>Confirm email Address : </label>
+            <input type="text" placeholder="Enter Your Email Address again" name="username" formControlName="confirmEmail">
+            <div *ngIf="controls.confirmEmail?.touched" class="error-message">
+                <span *ngIf="controls.confirmEmail?.errors?.misMatch">email address not match</span>
+            </div>
+        </div>
+
+        <div>
+            <b>Note:</b>If you update your email, then you need to verify your new email with our verification mail until that you can't login to our system.
+        </div>
+
         <div>
             <button type="button" *ngIf="isProfilePage" (click)="triggerUpdateProfileForm()">Update Profile</button>
             <button type="button" *ngIf="!isProfilePage" (click)="updateProfile()"> Update Details</button>
         </div>
-
     </div>
 </form>
