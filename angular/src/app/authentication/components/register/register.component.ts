@@ -33,16 +33,16 @@ export class RegisterComponent {
       email: ['', [emailValidator]],
       password: ['', [Validators.required, invalidPassword]],
       confirmPassword: ['', [Validators.required]]
-    }, { validators: MatchValidator })
+    }, { validators: MatchValidator("password", "confirmPassword") })
     this.setControls()
   }
 
   register() {
-    const value =this.getValue()
-      this.authService.registerUser(value).subscribe(result => {
-        this.toastr.success(result)
-         this.router.navigate(["login"])
-      })
+    const value = this.getValue()
+    this.authService.registerUser(value).subscribe(result => {
+      this.toastr.success(result)
+      this.router.navigate(["login"])
+    })
   }
 
   getValue() {
