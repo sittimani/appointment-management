@@ -46,6 +46,10 @@ const routes: Routes = [
     component: UserProfileComponent
   },
   {
+    path: "change-password",
+    component: ResetPasswordComponent
+  },
+  {
     path: "patient",
     canActivate: [AuthGuard, PatientGuard],
     loadChildren: () => import('./patient-management/patient-management.module').then(module => module.PatientManagementModule)

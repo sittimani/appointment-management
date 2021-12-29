@@ -98,7 +98,6 @@ async function getUser(id) {
 }
 
 async function updateProfile(id, body) {
-    console.log(body, id)
     const data = await model.findOne({ _id: id })
     await model.findByIdAndUpdate(data._id, body)
     if (data.email !== body.email) {
@@ -106,6 +105,22 @@ async function updateProfile(id, body) {
         await mailSender.verificationMail(body.email, id)
     }
     return { statusCode: statusCode.ok, message: "User Details Updated!!!" }
+}
+
+async function changePassword(body, id) {
+    const data = await model.findOne({ _id: id })
+    const result = checkForPasswordChange(data, body)
+    if (result.statusCode !== 200)
+        return result
+    await model.findByIdAndUpdate(id, { password: body.password })
+    return { statusCode: statusCode.ok, message: "Password updated Successfully !!!" }
+}
+
+function checkForPasswordChange(data, body) {
+    if (data.password === body.oldPassword) {
+        return data.password === body.password ? { statusCode: 400, message: "old and new password are same!!!" } : { statusCode: statusCode.ok }
+    }
+    return { statusCode: statusCode.badRequest, message: "Old password is wrong !!!" }
 }
 
 module.exports = {
@@ -117,5 +132,6 @@ module.exports = {
     verifyUser,
     reVerifyUser,
     getUser,
-    updateProfile
+    updateProfile,
+    changePassword
 }

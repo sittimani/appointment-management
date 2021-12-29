@@ -9,6 +9,7 @@ router.post("/login", [authValidator.validate], errorHandler(controller.login))
 router.post("/register", [registerValidator.validate], errorHandler(controller.register))
 router.post("/send-reset-link", errorHandler(controller.sendResetLink))
 router.put("/reset-password/:token", errorHandler(controller.resetPassword))
+router.put("/change-password", token.verifyToken, errorHandler(controller.changePassword))
 
 router.get("/get-menu/:token", controller.getMyMenu)
 router.get("/verify-user/:id", errorHandler(controller.verifyUser))
