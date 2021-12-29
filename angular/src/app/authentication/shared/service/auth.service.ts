@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { serverAddress } from 'src/environments/environment.prod';
 import {
   AuthResponse,
+  ChangePassword,
   LoginCreditionals,
   UserCreditional
 } from '../interface/auth.interface';
@@ -43,6 +44,10 @@ export class AuthService {
 
   updateProfile(user: UserCreditional) {
     return this.http.put<string>(`${serverAddress}update-profile/${this.getUserId()}`, user)
+  }
+
+  changePassword(value: ChangePassword) {
+    return this.http.put<string>(`${serverAddress}change-password`, value)
   }
 
   isLoggedIn() {

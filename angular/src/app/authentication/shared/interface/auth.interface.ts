@@ -1,3 +1,5 @@
+import { AbstractControl } from "@angular/forms";
+
 export interface LoginCreditionals {
     email: string,
     password: string,
@@ -17,5 +19,11 @@ export interface UserCreditional {
     email: string,
     password: string,
     _id?: string,
+}
+
+export interface ChangePassword {
+    oldPassword: AbstractControl | null,
+    password: AbstractControl | null,
+    confirmPassword?: AbstractControl | null
 }
 

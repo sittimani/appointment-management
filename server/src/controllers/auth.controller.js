@@ -56,6 +56,12 @@ async function getUser(request, response) {
 async function updateUserProfile(request, response) {
     const id = request.params.id
     const result = await service.updateProfile(id, request.body)
+    responseSender(response, result)
+}
+
+async function changePassword(request, response) {
+    const body = request.body
+    const result = await service.changePassword(body, request.user.id)
     console.log(result)
     responseSender(response, result)
 }
@@ -69,5 +75,6 @@ module.exports = {
     getMyMenu,
     reVerifyUser,
     getUser,
-    updateUserProfile
+    updateUserProfile,
+    changePassword
 }
