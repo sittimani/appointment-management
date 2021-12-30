@@ -10,6 +10,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { DateDirective } from './validators/date.directive';
 
 
 
@@ -20,7 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     PageNotFoundComponent,
     InternalServerErrorComponent,
     UnauthorizedAccessComponent,
-    DialogComponent
+    DialogComponent,
+    DateDirective
   ],
   imports: [
     CommonModule,

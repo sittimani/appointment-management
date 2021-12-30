@@ -12,6 +12,9 @@ const appointmentSchema = new Schema({
     patient_id: {
         type: String
     },
+    date: {
+        type: String,
+    },
     doctor_id: {
         type: String
     },

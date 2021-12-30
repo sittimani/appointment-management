@@ -9,6 +9,7 @@ async function getMyAppointments(request, response) {
 
 async function sendAppointment(request, response) {
     let body = request.body
+    console.log(body)
     const result = await service.sendAppointment(body)
     responseSender(response, result)
 }

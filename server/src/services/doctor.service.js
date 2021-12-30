@@ -15,7 +15,7 @@ async function myAppointments(id) {
             'status': 'Approved'
         }]
     }
-    const result = await model.find(filter, fieldToSkip)
+    const result = await model.find(filter, fieldToSkip).sort({ "time": 1 })
     return { statusCode: statusCode.ok, message: result }
 }
 
