@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserCreditional } from 'src/app/authentication/shared/interface/auth.interface';
 import { AuthService } from 'src/app/authentication/shared/service/auth.service';
 import { DialogService } from 'src/app/core/services/dialog.service';
+import { DateValidator } from 'src/app/core/validators/date.directive';
 import { selectValidator } from 'src/app/core/validators/select.validator';
 import { AppointmentRequest } from 'src/app/doctor-management/shared/interface/request.interface';
 import { BookAppointment } from '../../shared/interface/appointment.interface';
@@ -32,6 +33,7 @@ export class BookAppointmentComponent {
   ) {
     this.appointmentForm = this.formBuilder.group({
       doctor_id: ['No', [Validators.required, selectValidator]],
+      date: [, [DateValidator]],
       time: ['No', [Validators.required, selectValidator]]
     })
     this.setControls()
@@ -78,7 +80,8 @@ export class BookAppointmentComponent {
   setControls() {
     this.controls = {
       doctor: this.appointmentForm.get('doctor_id'),
-      timeSlot: this.appointmentForm.get('time')
+      timeSlot: this.appointmentForm.get('time'),
+      date: this.appointmentForm.get('date')
     }
     this.times = [
       "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM",

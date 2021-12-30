@@ -14,7 +14,7 @@ import { DoctorDataService } from '../../shared/service/doctor-data.service';
 export class AppointmentRequestComponent implements OnInit {
 
   isApproveButton = true
-  headers = ["patient", "time"]
+  headers = ["patient","date", "time"]
   requests: AppointmentRequest[] = []
 
   constructor(

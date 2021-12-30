@@ -3,7 +3,7 @@ const authModel = require("../models/auth.model")
 const statusCode = require("../constants/status-code")
 
 async function myAppointments(id) {
-    const result = await model.find({ patient_id: id })
+    const result = await model.find({ patient_id: id }).sort({ "status": 1 })
     return { statusCode: statusCode.ok, message: result }
 }
 

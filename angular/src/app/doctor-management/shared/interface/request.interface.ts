@@ -4,6 +4,7 @@ export interface AppointmentRequest {
     patient: string,
     doctor_id: string,
     time: string,
+    date: string,
     doctor?: string,
     status?: string
 }

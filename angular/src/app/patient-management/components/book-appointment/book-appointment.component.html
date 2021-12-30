@@ -6,7 +6,7 @@
         <div>
             <label>Available Doctors :</label>
             <select formControlName="doctor_id">
-                <option value="No">Please Select Value</option>
+                <option value="No">Please Select Doctor</option>
                 <option *ngFor="let doctor of doctors" [value]="doctor._id">{{doctor.name}}</option>
             </select>
             <div *ngIf="controls.doctor?.touched" class="error-message">
@@ -14,6 +14,14 @@
             </div>
         </div>
 
+        <div>
+            <label>Date: </label>
+            <input type="date" formControlName="date">
+            <div *ngIf="controls.date?.touched" class="error-message">
+                <span *ngIf="controls.date?.errors?.invalidDate">you can book appointment only for upcoming
+                    date!!!</span>
+            </div>
+        </div>
         <div>
             <label>Time Slot :</label>
             <select formControlName="time">
