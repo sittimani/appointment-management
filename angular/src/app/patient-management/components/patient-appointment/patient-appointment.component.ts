@@ -9,7 +9,7 @@ import { AppointmentRequest } from 'src/app/doctor-management/shared/interface/r
 })
 export class PatientAppointmentComponent {
 
-  headers = ["doctor", "time", "status"]
+  headers = ["doctor", "date", "time", "status"]
   myAppointments: AppointmentRequest[] = []
 
   constructor(private activateRoute: ActivatedRoute) {

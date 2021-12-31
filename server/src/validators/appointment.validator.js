@@ -10,7 +10,8 @@ const appointmentRequestValidator = (request, response, next) => {
         patient_id: joi.string().required(),
         status: joi.string().required(),
         time: joi.string().required(),
-        patient: joi.string().optional()
+        patient: joi.string().optional(),
+        date: joi.string().required()
     })
     const result = schema.validate(request.body)
     if (result.error) {

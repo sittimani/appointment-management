@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppointmentRequest } from '../../shared/interface/request.interface';
 
 @Component({
   selector: 'app-doctor-appointment',
@@ -9,10 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 
 export class DoctorAppointmentComponent {
 
-  headers = ["patient", "time"]
+  headers = ["patient", "date", "time"]
   myAppointments = []
 
-  constructor(private activedRouted: ActivatedRoute) { 
+  constructor(private activedRouted: ActivatedRoute, private changeDetector: ChangeDetectorRef) {
     console.log("doctor appointment")
     this.activedRouted.data.subscribe(result => {
       this.myAppointments = result.appointments

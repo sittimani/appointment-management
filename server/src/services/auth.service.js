@@ -118,7 +118,7 @@ async function changePassword(body, id) {
 
 function checkForPasswordChange(data, body) {
     if (data.password === body.oldPassword) {
-        return data.password === body.password ? { statusCode: 400, message: "old and new password are same!!!" } : { statusCode: statusCode.ok }
+        return data.password === body.password ? { statusCode: statusCode.badRequest, message: "old and new password are same!!!" } : { statusCode: statusCode.ok }
     }
     return { statusCode: statusCode.badRequest, message: "Old password is wrong !!!" }
 }
