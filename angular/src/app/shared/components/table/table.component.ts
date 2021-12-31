@@ -1,4 +1,5 @@
 import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UtilityService } from 'src/app/core/services/utility.service';
 import { Items } from '../../shared/interface/table-items.interface';
 
 @Component({
@@ -16,7 +17,7 @@ export class TableComponent implements AfterViewInit {
 
   isNoItem = false
 
-  constructor(private changeDetector: ChangeDetectorRef) { }
+  constructor(private changeDetector: ChangeDetectorRef, private utilityService: UtilityService) { }
 
   ngAfterViewInit(): void {
     if (this.items.length === 0)
@@ -26,5 +27,9 @@ export class TableComponent implements AfterViewInit {
 
   approve(id: string) {
     this.approveUser.emit(id)
+  }
+
+  sort(field: string, way: string) {
+    this.utilityService.sort(this.items, field, way)
   }
 }
